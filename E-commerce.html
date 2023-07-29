@@ -1,0 +1,529 @@
+
+<html>
+<head>
+    <title>E-commerce Landing Page</title>
+    <style>
+       
+        body {
+            font-family:Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            font:Jokerman;
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+        
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .product-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .product {
+            width: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .cart {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .cart h2 {
+            margin-top: 0;
+        }
+        
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .cart-item {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1> ValueVortex </h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#" onclick="openCart()">Cart</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Welcome to our online store!</h2>
+        <div class="product-list">
+            <div class="product">
+                <img src="data:image/webp;base64,UklGRvAVAABXRUJQVlA4IOQVAABwYQCdASqrAAYBPkUejESioaEipdHsYFAIiWlu4MAAZ13APgLru0EGM2zXPJekDzmepR9ADpVMgm7I9s/9m/Jz0L88vtD2u9gbNP2MalPx77x/k/zD/MDn14Av5H/Nf8R+aX5dcwCAX9L/r3+j/MLz1tVDwT/ufzA+gT+ff2T/NfmfzWv3v/iewJ/L/6p/qv8x+QfyE/6X+f/Kn3Afo3+T/6P+h/Jf7DP5X/Uf9j/e/8x+0fzrexj9rPY5/W//qnUAvh29TZIsFFWGJS08JX2N0ssQXtAt48s1lZN/VM65KT0mKDZ9gEjBewaGcOTL1UyAVwYY2J5kGRH4/iAcQ+XU3ZcgMl+5rrkopKWnkQtYFz2heBtSGIifFP5XwKUcg/zguYR4mPxwCrdodroHOcEPcUlUhKiFLkyeUyOxsakdeDDO1PtxpC/5cib0WYT+c7zWmFOX4/ZqlI4eD7GgPKxhOnpJCXOkklb71OszUS1CpkYM2zM97Hizl5csO3bcxvlYRRZthJ293G/EOW+fWuozAPcpvyskESuzvHPJGIDP+4WKWdsj/d1DJxR3+be5b3uoy8q/QWVsJignwruO97tvzCGYiwdrULzUNPy9m6Gyh3PuBCn0o3U+9WNq5OT8C2LBPG1adQUDkb+0rS6vy1FgEI1CBYObiWxvH3taSFLRTH82WDtZk4sYpXcXdne5ifsR+Cpb/wl3yflF2QFxcFCMPaOszzR20E1sc4aCC12NsZ5DQH612AHtKoVXY1Cg617blRVkIdwZJjBkJwxPmsoLDIi7bgSCgXCFpSxiIEZT8FLq5cJcTUm5JlF+zSFmDzV8M2wO7GPC0i8lwOCl/HvkU5knYmJYvY4z9cvbEtagZ5kWjdpRkUNhOdiTe32pi1P6xIva9uF6ybPxaHSncSKFJCdrAmM3qH/yXf7sv5nUy3zf/GrOympFytWEl8mOSMPQr1B6+JesVvUCCwHaiUXNZIBww+D15py397JOu3RP9Xhk8LIRy/5d0cu9mZ8ns1nDA2XBCa4rv9bTLhd7M0ejTUyB4AD+5axO2K0aCb7lewozdaNSLDNV7ktSrNz8/iqGFQTKoy+YFe/qMU6kwxUyXHQkH3CMw8iLF3qmYMnvafNjs9eUHtcQe6TygRJfkxFn1OSsak/9EOKQoWpOEu3od3ZlP8LP3/sDj2o0hR1naNxqKBvTvllFDF+QaG/ND97H+Qirc5M03zto+dYbFJFYN1L6jRi7VBYNaejHpof9dVXhYEyRauWdhrShQm8WMnbCaiZdZIPRJzpNRPPNX6nGmMn0PisgXWU5Meqll7nNVfIukix0SdsII10qLVngE6ff8V0Mx8ZU8XH/3V8sbZICcmsGjDB+v/82AHXnvaEQR7xoqsdaMDHxw3iAKulDmnXmdzsnDwGE5g2hpsNieKFFNJkQ61eDfYa3V1pyVyisnVW5tkKJL48WlBwN7JmvtfNUTvQ8EUQ3fxu16RIK84P16GOtIT7hQjKWkxwzRQnS9hNLLtIH62/2tzuevW2XgDp8dh3xBl8DMOPmpUXKlmcbuWvyAONgrBVD/Hlqiw7rM36vCp0h2stL18k3GuT0HFhCKlKSrunyGE27Wvb0DL++bv+HFwToxiliV4YHyBEqQ1RwwtLpIwTDw8bxTEjb09WU6GLz11jH8Itvj0OGDkYuHNZOqWbYjKBrKtg+ZkIjpl9TBlK6gDdXt3m/0RcNoz2SCqA08dbdmmXJAx7/IBJi9JalPkAxd4hZqQMV97V+5nyHwxgOz9pKCPS1YlHh7ZEkbdgGiU/maijiB/8/LsJqwqD4c6gtvI3Fi37CYLuJKvzzLIsoOAkt7qagS/jUuMwfShVD7wWgHeS5xW99gjmpBFf5kIPTWLxpKUaA1QqGydNOVbv+wWfC68GKAOunMyKOtQDifcAv7eiCEJMfVE275BepoWCAmXClvGdephd4T+L0KmiTX4TriSPxgNq5mXMklO//SwA+TITFmy2j3qWTxsAXbCOVK1uTAK4tjABVqWu57ZCi17VCxMR9JYE+YZ4argsuz/8TLM8V5zCh3U82BKZQ1yRG8fPqXWandJLmOnyVO6wXO7A3j8rrfmz1GwGoILMv2Mwef75WZ7I/Xct6iqv46hD6Ku6259n08SaKvq90NJx+/z0syE/XOnBpnyKsTo5JGvyydOC5ZUucst74R0s1wv3MRSdCuOhx3vyNCHXsRIAMNKTG8bO1bBupwzowQBx+PCu0KJhbCZ0whiXCUCmX9JqJSa1jC6MWwpL408GpnbSbauxXWWB80GZ9gikCfzt/z/wuXqUE5zqA/wecJW9VtmcXDFcohTU0rc38ngOo2Y2EFmxp8kelJfReos3J63g/fhmCrF1CEzHeFfK3bxc2yY8zv7MVClEUP6/r/vNx0jhNuNym9dXe9NZd8uKRynP/Ne/qMHGC4w3nLJZ/RNcdcsXd+nNYj+lOcMG81IM54MQCjiTHO2YIIafQlDTJxvCJSfcrCsM5U09NBk2adJZ67BpTyca8XZbrA4lumbr7gf2+WZUUUIQ3zgYavxIuPnYmrfxX+Z36kAoEUtEYgePb9UbTxiB4RpejPhQiIfwtfvNvu5ud8qw0W5O+XW4VwZL5XTZRyatwtm4K18Ka5YEJ+Tgkm8QPBvw+TmnU6FkmaiGrn3ulJkz22Jv5MIN5RXF906Vnrab8PKPFuGd/n/patd3D2vAx2fJ2NXLQDnylE7J+pq4vp54LcVhfVOk/cs98iMuOLYL8v3CP7XV9TLWi/N50byFHf8d+vg/1WWDJZPr6Y3Ek6gfPCk6aR9xOO+r7naxdLGwVC+TX1y1+wNI2kFiQX1CPOEX/LB4l1D4gevwzy8lzhfAARkVMeIN5EiiMpuSw0B3qloB5CMZGUVWL5Nl52OUHWPLj1AT1Jj/DgAwDkqL5nG6VEUdkKxPWJdzAY2RiuSieZNdcMBeWljGENG6zFKh/JY4y673MA3M99PZK67jk5MER/BGQtdTgESGvA0J3TQJzYg3YeGubJWu7iE8flGkXR2qIcPdGLkqBxM+HH7QD7/nz1iGNX722WDj7YGrGanpfJQnyeNd8z8DTy9AJtgUJjEce6jNYyMiRjELDwFbVpBtJwpF4IMZszf9Y98t7AOwWC1UHY6jNkBoCcgcKP7KXyElDQPc+UE40tJo9xeqf3Axpz4WVdT18ssa3u8gNu8/8CWE7Gh7p3QglrW6dSdnntTm7T4qfptvpe8I82V/ob3uIkud0TESxcNw4W5gwti++YYG2vSPQH794uGtAdREqoEMoqbrVdrITa/2aifJkv19iZ5ISOXvvDwdRDf/1OIsHCjAVZELr7bQr68Y4OLIH5l5tGj43siudwF4D263/qhx8SLdYdQeJOtTPzi46i8XJ9na//yfeXruvntsh4VF6QgJNUSYbKMQbJ8yN8O8rTYYD8ssd5Ep2dSFiKC4l1CXZysUzR5U9u0xZjndnHBaxp9wHSqWzoenLFeJVPPqdMFtk8bPn/+hPfM3r18Lmz/miP7jvPehIgYI3Bxz98WG3rBfEWoTFeV5Ipgj3RTj8xidRVOrWjCPQfmMnqQmpXzWzxcqv54ztVg1ExJ6Riz2v6HfPgpPdO7m0ta6qoVLQO0Iwxly6ubMWPwK4FC4sqtJTD4TOO14lP+6FtGMumD41la9rQ3MZevxDVsYHu9a0ngTv2AFER/2f6S/ejOrzpDpap1zp7gh89a0dZCRj4tsLj3GGFeBGZZjNQ//qeTVh3uTyBcGD1jgPq8UbiAV0QLA4c5jHolSejvEQ53bJNyC5j7xrPoWPDFJMjx6YgzyjSKmxgWEtWAZsiNEOAkXMnnl92Ufosj4MhhCwfdfN3cIy6WobJ55Hnv+kDIJL/O7mMYVoG4ia412MUv/i2KBPIZck1RGgB+frv3nMkNOl/Hr/itZsXxYrilqoCwRypMGMHXuTZd/7FSecemike5OWKNh8aQVNUjVNat7dS160JITvD/SbQKFGNfD1ker+MfGYAUwD3eXEp1eePckxqs9880YNZ+1uAYOYVoR5ESRIrLq0ewf6qZbDJ5ZZS2UPISbZUprZq7wbgxVTyiYYzUyuLsPMSXErXLv5hqmVNkDh4TKEqEBFy9PusrerzIMyVf45Rvlu4g92pW6TTthWkrCwmL0ZmnhATTmSt/RRDOiKFSzQ0FiabSK3pW2P/3qqN6LTmjOw2vmSn8RHp+5Thk1GyHPOn33cXO7FtbV8cRZ1HSag0CfJiw1JuDc6OoAZ34l0/AQsCp2Mr8hk0RBR6fsJ/DqwuM92JYL4Str9txdQUrMw6WLB6wYV8vEgMSkl7i9ahTt7uqEZ9hU5KJ8df5NZRRgJNezBTrg1vMPY9josYKJ+N+DfVeW8JDSHmLGEjQL1RN2k5k5HaOOMP6SgFPnjsQZkXF+cEPoEfMeoW7Q4r5ZnMdEVTmDz4PM+W3LqnrIS1T9XbR+52QIYdZpppwWKALpvfSz2L6Cqk0w+OnnQBhGIDeJo6b7dKGB+lyvh09q15I+9IZcNPXbr4kKCGzhFHtGm8V+uEI3uyizDwjMIVr38IB1uy/FhDKfPOcT6exNdsVLJU74mOSXa9V7G7S9bFqD1PCCweGcztpgrdMQRdES1R2LFoaVZo0MrxZNAQyIXy6X8cwCVbrrK92/V1ZvLo9OdWZjy+H2p6sD/m2BODOCE2voH3lIJDoy4c/rkR844MvuGkR2DmVAoZP5g9qW4TFQpnHIF6nAoKJrQaxj2m8Cb4BLRIMvR+p+IoR7aQG4aM5mihiReJZxctX7bkDb/7rk8+lwF6fazYnuRf4zJI3XvqObn5XvZR5xy+xRX3JO55PF+spP40Yj/SAQ/EdyElRk0iWmnSOqvIH+X8+FIodJkzj/bc9QeClS5gs92k6taHed+JiY1LECvxXTtZF2g4EvtjNKfojJwyzQvCEaye0mnLvQO8nk94vos4iU88z8KDZkZ7EUFFIII0JufNzkcJLI9IgMJ0eLfs6PfEbBpNdNvqxO/VHgyHYrmf36HJpRhFVzXxCz27bPG8pMl/hGQ9a+Zg6ibMge9dQHRQW0bvr3SgSMGJbjKsbW8Wskg0wWwVguPPLwF58FvK55dxyFZNyFC4m5HmCURVxXjLvnBTlvtrNCm2DaYL6lIz0jDvy1/4ickIKsItP5NnaqwBLT9K5FsiFHegybjhM4a9t4X3KADHGOUPbK3mKoBItSoHNRxue0ZAhJ3K+N4FN85GLQwAioUUQrWgYAXuo2iAU8oqY+BLSna7gxwzN5rKOf1zV3lR2KNrKtnxHlGxceQkOwSHZNBEA8j+tdvz6/5811d8rgdxW6NMiIbPZMdbpsS8mQnv6t7UMRT4Nj0YLrmXxTFMS6E3ZBJv3mfyQxcmK2YJyFu9ASCcMbQ96fTIUX6kohjJaJA+r/RJ8q9bzlM88KvhD2hivXonvPUZQSBsn7Y23l6tGNxaRAGoaBE/B/L9yeDIQkdJK5ZlYax1+jk4rHqyPtQH6Y6wKqJ6jIlUVEn3OqRF2qt26iZA86CoXQWb4CY9TNY1tOjDcY3OLPVw1cg6d0mSHp/yNkS67HUZsDDpswwTmWdexgcKG2ZG/YSCCgesPUJSE9waqwiAlZrD5cCKvRulU3ALgWLUcoxiTTq1OcjphFR9e/HtFnC75W3wt6RKYAJU6ZV0qf5DqeXZ+MnoduXpPGG5TtQmJ0M1Z9tfKBdyi8y9wjjBYVgsCCnS4CHUfx/n1kD7nPIFhrju5iaOXbwbkzQ59MfdHiyAWqhmLkxeXohUJwTf+x5iYeCkswCTNjH1ufarytssPrVw9XEI5cvg/0btdDe+UHQelU4uSLKY/LhDrmEg3g666Ek4nO6s3auGmm2wTaHNaN78W5/0K3g9UwHbTzYYFw9GZRZ4AJF4cFiGrsY9CyECISOZo124x5D+2lg5dfXGUCZ4yVG6VTSZiw0XOWe7JKRp7wYjA4+/SZFYlSvn4+/EZi+scKDIJi8Pf2W3qemsa492MO5khp1mDC3xg/jkTEyLWsAQUakuJhschMHE35YQav2LZHFznqj0AxgRXNJTNR1fkbzGj/3xYNp5aauSpQ/pbF5c8T0ABKinCLj1rTQVHZnxaXxj+dPf6qfkTA36diG73g3LkKf0S1XrsTosq/HUm9Jt/Gl35H289GdGT33jQRgVbqJvKLXOP5kofc0WhBry3ncgyet7hk3cylERFXpyV/PdLrNIMFjrudHmF/1LmKb0uvbdtS6pqGO94vxxwkhKNZQM39445mwZxnbPrQQXqNlXec9mAavjnmwr8WneocosJLwNXBpXuJqpmLXgakK/R0qP+S21/V6AT++Smmwfzv+xpJXl+5+/johe2cz/d245alBjQQhRlP2plsxf1FICVph/T0dmrI09mUPldP2g5cjASOnDBPaBfHzWhKNaFi0FkG8NKmGuNAq3CK8LUmBMadCqyGlLxXcKOmNw6nu+RD2G+oKg/upqM9jy7eMkuKDqE9YO9/dHIqkdCj+ozmB3uLvaeS2hXNGVjLiyvnfOKGucP+3OyOJ44G1wCLVxPIoLz74oUAbVuoPTMO6V3bHu+sxOI98GiYshzGSUygp1iqK4arR6QanbGniE+BkaDmtNr+hZK4idI1X/UUE8sG/xqmnpzT/bHN9Pawv2vhEnNaTuzrg67to3NaYlpw8usclg8ZNZd9lEdw0GBSevnBMgjw4ETahjT7nUKNmYapqRMv5YRASI/fhpEUfZcKDkopJmqLxRGFzey/gTwd9oPUhpAHh9x4NFAD06I0qETjfMOT5o/ghK5cLvfncQ38vAqi5iOMZekpzuxNN0BWI6Um58eneqyC/O00caV5sUMXPKT4qWDOSTBgkLZ9wOjHIAgrAQgv+7iiONMUW39UTJM5j9H9CrQD2cpRr7eOLnl9mlPqeStVNp+Uxko6ln8bqRyoCjaPup8Vms7ydyglkCjEokMYfLJpwJq2XZ0A3X5+mdH8rrktvHo8mmiW+Tw9Gsq5zyC8hp5QNpmd2LRWhSF5Cj/Zk13Pe7W81ddkwA97bwKTeywizuclduXFDm4C4MCeA592erRAkPTsSWkFglgDQAnCKg8el7B7w4m13Yzz1F75GGlBCjyz927FyJ4v/Kg48iIJWe9SEQwuIPQWmHFE6rcpqBiWcN4lYAa15TPSYbqNBMXlQ7QHpEoQqA1bZa+857rBaCO1Gy6QE97I/NA3XCQJ4Lw+aynR/z+DXR4j5PvFoikSKW5EXNVPBVSNA5r1HBKhEGUnPrV2NCdU43IJ0RT/jtMDHC/fSH/sQP1HS5o4lyjJn4cN6ndQ9So+a9Tv+7CH1XR5QGNLbq9wPX9aO/ScMl0vcgJdzG1+/90vz8yMwu86WOaGmnsjEwAv507G4WexmopfMgX63VtZfKFezJeG0uaQjzUb72UAYId029oCjBJEiHQIb2O8SRwAAAAA=" alt="Boat Rockerz 370">
+                <h3>Boat Rockerz 370</h3>
+                <p>Price:₹999</p>
+                <button class="add-to-cart" onclick="addToCart('Boat Rockerz 370',999)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="data:image/webp;base64,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" alt="Product 2">
+                <h3>Samsung-Galaxy S23 Ultra 5G</h3>
+                <p>Price:₹1,24,999</p>
+                <button class="add-to-cart" onclick="addToCart('Samsung-Galaxy S23 Ultra 5G',124999)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSgunUZE2eqv4JUIuii3xU1woy_SU9I0M662GNJNSBXjkOVWnySwCAvVkan4BEtp0aU1OI-XJntaLWEG1zmvYrTyPJFzR2qk37WT9R-aq_M1-qh-VhDQGnEQA&usqp=CAc" alt="Product 2">
+                <h3>Dell-Insprion 15</h3>
+                <p>Price:₹84,790</p>
+                <button class="add-to-cart" onclick="addToCart('Dell-Insprion 15',84790)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://rentals.imastudent.com/file/2021/01/0022124_canon-eos-m50-mark-ii-mirrorless-camera-with-15-45mm-lens.jpeg" alt="Product 2">
+                <h3>Canon EOS M50 4K Mirrorless Camera with 15-45mm Lens</h3>
+                <p>Price:₹97,944</p>
+                <button class="add-to-cart" onclick="addToCart('Canon EOS M50 4K Mirrorless Camera with 15-45mm Lens',97994)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="data:image/webp;base64,UklGRvoCAABXRUJQVlA4IO4CAADQEACdASpaAFoAPj0Qj0eiEREKOCADxLKAO9z7NTZcAD8Gf57SAfrT66voR/7fp/5Kf5U2YgdXLlND7OJR7SvmdNQ86DP59M+wb/G/61/yuAa/Y5ag3tYeXvrEw7TkLbAAsfERoe8YK2rx6jiLZl/6Bok2matxvtFpiiXFi/wuCk4QyzBOmTXdbHWF4udvQAD+/vh8Vu/6hv9w7+GvzbOAyiUSCAEq7pMd1UW8PlQb/jdYrxJ2Dcqmdc+R+QtRVNaFuauDuZdx3tg6lsnVjT/wQr/eTrfjmiDNEJLvytIZiVeAPC3k8uPFxNQVJD2UjBRrAWxBQXFjQnSrVobZwf1QIMWOPGKm9fcTdsj908qyFaaPF6XMdA34vu7i0PJrK7bQ0bHHuZoeDTcP2VE2ALaMAvZCagKz6p2ozWkAyx4UIGS6USw4x+XcaPtjjAS72g4TEjbGr0+CV//zx/D0f0ZKpmEt2L8ben4XSD6OAOIqbjEXT3MsroqI2/K1b8gjteH1yLcnZ14A8Mt636Sia1/P7kSMlacrVBy3hXcwSi0zUZuXnKfzAtuOkzki9RhruXnqgw1wPisE1xX5u2tw6gkwNNL0TMLwh/05GgTT2FfQurfoWLyT6//HoHgKIreryAY/wT/+lpIP/w/f/QPh8DPu82Knw18VZ1PhPzn/Jrx60TLiRWZzcvy5voJLfyfl0D0IDt+f6idb/bOOD+Lb9lkytgDFRKrmkkzxQYSt1Rxv/6aYf+jz/3sBbLlemA6iYjT/z/9jR3j/LOtHJwf6pRtO8WTrnGxsH1XaH4tEGsa6musVLWzVfrd3L/lk/z9QXiNJU3o3kMitoKZ30+qOffba7XH0rxIPhtKfEtoPtRw3DF2+X+Iv3adEooXOyRSB7eVW4Nstk7LLCqwyhYoUQ1hDV5OdiiAm87sGC3+7x3TWzyGt7/LtVB5yWKmmoyKDtsy1fsoXcn2P2PMdOsKYrV4UT2r8VhkxBlZxjcAAAAA=" alt="Product 2">
+                <h3>Philips Hue Gradient Signe Floor Lamp</h3>
+                <p>Price:₹25,911</p>
+                <button class="add-to-cart" onclick="addToCart('Philips Hue Gradient Signe Floor Lamp',25911)">Add to Cart</button>
+            </div>
+            
+
+            <div class="product">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIQERUSEBMSFhMXExYYFhUVGBIWFhcYFRgWFxURGhodHiggGBolGxUVITEhJSkrLi4uFyAzOj8uNyguLi0BCgoKDg0OGxAQGy8lICArLy0vMDMzLi8xNS01MDctLSswMC8xNi8rLS8vKy0vLy0tNy0tNS01NS8tLS01MS0rLf/AABEIAQMAwgMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCCAH/xABBEAACAQIDBAgCBggFBQAAAAABAgADEQQSIQUxQVEGBxMiYXGBkaGxMkJScsHRFCMzYoKSsvBEosLh8Rc1Q1PS/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwQFBv/EADARAQABAwMDAgMGBwAAAAAAAAABAgMRBBIhBTFBE1FhcbEUwdHh8PEGIzIzgZGS/9oADAMBAAIRAxEAPwDuMREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERMWIxC01LOwVRvJhEzERmWWJRK3WCrYjsaKD7z318bDduM3cN0xyYkYfEqqq4Xs6q3sC25XB+jqCM1/MCa+jXjOHPY1dq/XNFE5xz+y3RETJ0kREBERAREQEREBERAREQEREBETy7AAkkAAXJOgAHGBA7a6V0MMzU756o3oDu5XPDfKIOnmJrYsUgwVCCQEtw36793OVjrBx1IbQqvh6yVKdTK2ZDcBrBWS+46i/wDFKvs7a4p4umSRrmHqVNh72nVRsiIeFqZ1FyuqM8RnERw7psbpNUTGHDVzmpvl7NzbMrEDuEj6Sk3sTre2++l2nzCNuYqpjRUGfJ3CDY5RkJtdjO1be6w8PQpr2GWtVdQbKe4l+LsOP7o104Sl6KOJpe1ZzNmiZ745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G4D2E2NmpozC4PNSVPuJeP8Ap3iW3YJh51UHzqSd2N0Eq4eiwrYeibuW+mjECyjVieYOl5HoVe8KVda02c+nMx7Yhy11v9ZvU3+d5hbCg7zf0H4WnRMRsbA5irJTD8lqm/sGImOp0awZ4VR5P+YMvFm74lWrqXSq/wCq1j/GPpLnrYEcD8P94XCeI/v0l5fovheFSsPM0z/pE06/RdR+zr+jJb4g/hIm3ejwim70Wue0x/0qwwp5r6mw+ImWnhifrJ53zfL85IYnZFZBbQjnTKt6WYX+E1uycb2qDzRB/omc1Vx3+jadDpK6omxFNUfGue/y7sANIb6qnyb/AOR85mVhbum48LiY61EEWdmy8QTYfgJ6V0vlVl8AGU/jeYzOfL19NRFiOaaKfl98y9aS59B+j1yuJqDhektid9wKhsNBppew+EgtibLNSoC1CvUQC+VadUBjwUtl3a30vu8ZelOLf/C1sv2clUKNLaAgDhxvN7NrPMvG6z1TEejanv3n7mYbHorTNO9w189hmJL37TW+UMSBc3uRccraG1ei9GqzOCVbIEQFWyqMoXct72ux1424SUp4PHn6OFI8zTHzYTPS2JtNjuoovHM4v/lDfOdM26fL5yjU3aKt1MzlVaXQ+iNHrVG/dQBQfWwA9jNOp0Nc4n9S4LVLBab/AFUBHdUjgL31Gupvvl+TodiG/aV6a/dDv88sktndCqFNxVqNUq1BbUnKotusq/iTK7KKey93V373FyqZj9eFiw9PIqr9lQPYWmSBEMiIiAiIgIiICIiAkdtjYmHxihcRTDgbrlhbx0IkjECmYnqy2e/1ai/de/8AUDNZeqnBr9Cri0+7UVfkol8iBSk6uKA/xOM9XpH50zM6dXuGG+piW82pj5IJbok7p90bY9lXXoDgfrJUbzq1R/SwmZeg+ztxwtNrfbL1PXvE85YoiZz3THHZE4bozgaX7PCYVfFaNIH3tJKnRVdFVR5ACZIkYTMzPciIhBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERED//2Q==" alt="Product 2">
+                <h3>Air Jordan 5 Retro Sneakers</h3>
+                <p>Price:₹16,595</p>
+                <button class="add-to-cart" onclick="addToCart('Air Jordan 5 Retro Sneakers',16595)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="data:image/jpeg;base64,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" alt="Product 2">
+                <h3>ADIDAS Men Solid Lace-Up Sport</h3>
+                <p>Price:₹2,999</p>
+                <button class="add-to-cart" onclick="addToCart('ADIDAS Men Solid Lace-Up Sport',2999)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSf2PmVAYK79JRRKBAnsnGSDhfzouv66cpYXEjNqcgAjmpbVB1yz2rIoKBjUMJ3-HDUUv4qHSgJDLWdikFKSFcN9cNcihrOoRDuNASJajBmzz1rzCSOII4f-Q&usqp=CAE" alt="Product 2">
+                <h3>NIKE ANTHRACITE </h3>
+                <p>Price:₹2,099</p>
+                <button class="add-to-cart" onclick="addToCart('NIKE ANTHRACITE ',2099)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQY9SEWZ8v1VBZ6YDttzI6_jNbQieIlSmwMod6rgVcHLlumPtGcJBkMs5NM66dpa0ep4g-fteenS9ZiK7sFh11y9Fxkhv2hy-Hn5tUWCv-3I7JzCOVyVOpcGA&usqp=CAE" alt="Product 2">
+                <h3>Puma Royce Star Wn'S Running Shoes For Women</h3>
+                <p>Price:₹2,099</p>
+                <button class="add-to-cart" onclick="addToCart('Puma Royce Star Wn'S Running Shoes For Women',2099)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSfD0OagsmoBALVeZeMc83vB5YgeON6GvoO3nEITlcp0XtUKDjZxiEjTpIdP60_5R22-YY9_d6k7MyjYyy81tkZG7WOfQnbvr58Wn8L5zgwAz5Z-tOeI3nP&usqp=CAE" alt="Product 2">
+                <h3>Puma Static Womens Low-Top Lace-Up Casual Shoes For Women (Blue)</h3>
+                <p>Price:₹1,299</p>
+                <button class="add-to-cart" onclick="addToCart('Puma Static Womens Low-Top Lace-Up Casual Shoes For Women (Blue)',1299)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQZ3ZeZ2_g2LDfAu4MGhbkXaaUcKtghk9retmEgeLnQW2-4bLPiQvSK9qAhgPLzvHfelguIJEBy3hVHzb3tOBWuDBeuhj9G8PEEE4796JGgTnXPetZPfwuybQ&usqp=CAE" alt="Product 2">
+                <h3>SKYTONE 3 in 1 Breakfast Maker With Coffee Maker, Mini Oven, NonStick Grill Toaster Oven Portable Multifunctional Family Size Breakfast Station</h3>
+                <p>Price:₹4,699</p>
+                <button class="add-to-cart" onclick="addToCart('SKYTONE 3 in 1 Breakfast Maker With Coffee Maker, Mini Oven, NonStick Grill Toaster Oven Portable Multifunctional Family Size Breakfast Station',4699)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR-BppRcWB5n7iqKjvomnsrYmWT8QX04vurm858TfLGXUDe-0Dw8i0UocwUbtnO2UrlsuWLmKGzhnO1z_L4W50NXnmqidVGrhBCYXYS0ab6L3tpHyrQBNnM&usqp=CAE" alt="Product 2">
+                <h3>Havells Aqua Plus 1.2 litre Electric Kettle Black</h3>
+                <p>Price:₹1,489</p>
+                <button class="add-to-cart" onclick="addToCart('Havells Aqua Plus 1.2 litre Electric Kettle Black',1489)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTyuJZptKnlUtcPk4sAEfpoO6mndlTbk-JMQAAJ4BEDgzXsZdFVlLCy_x8tj0SUMjWJw5SLqiwdL8WFIMjbCGBsGmnR4hOqNZ7XVArYBQ3UyTQgZBegJk0uYQ&usqp=CAE" alt="Product 2">
+                <h3>Whirlpool Double Door 231 Litres 2 Star Refrigerator Black Intellifresh 278GD</h3>
+                <p>Price:₹25,499</p>
+                <button class="add-to-cart" onclick="addToCart('Whirlpool Double Door 231 Litres 2 Star Refrigerator Black Intellifresh 278GD',25499)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRbJoVJ-Jdkev4l-mhU55ALrl8Hqtpig1qSOfitohyPCSE2yv9YDXjCcmJXCQf6l8XOgYcTIazYVp7arg_Xd2Er2TdBZISrDA&usqp=CAE" alt="Product 2">
+                <h3>Side-By-Side Refrigerator GLSF590DGLT1LB American Style</h3>
+                <p>Price:₹64,999</p>
+                <button class="add-to-cart" onclick="addToCart('Side-By-Side Refrigerator GLSF590DGLT1LBAmerican Style',64999)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQcjOpEo8CWqomrPSSnsajynqzr5OKz_udxpBNwAwNFh1k48BeYe2V1nLV4bg3sBjPwrFebHQ2Fa6kLxutJLf0vkGcrveeYrO8MSPgHwjSUYxTODkuf8l41&usqp=CAE" alt="Product 2">
+                <h3>Warmex Home Appliances Trendy Light Weight 1000 W Dry Iron</h3>
+                <p>Price:₹569</p>
+                <button class="add-to-cart" onclick="addToCart('Warmex Home Appliances Trendy Light Weight 1000 W Dry Iron',569)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS-YrUg6mh-9KB2ALeZYh8pPhoo5pPUp4Ua-gDWGLXOaCOLtZOOTFE8MEcAjct_IBAxM75fYiPZOu8u24FkZSsGA4cn632yZ9rPnh9YiALlNqNHNqKpUFuK&usqp=CAE" alt="Product 2">
+                <h3>Iba Must Have Makeup Set -Dusky</h3>
+                <p>Price:₹1,882</p>
+                <button class="add-to-cart" onclick="addToCart('Iba Must Have Makeup Set -Dusky',1882)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSwKEo00cO01CLkX1dJVj3iwNebYW7e7Loe6MFD-XnsNMUL3XG4HLTebVXUYc6sfIynaGXAlmLk2ab32uRPPcj5WxM26E1jFVh4vpCEr1bYRbjU8r1XPd2gt8g&usqp=CAE" alt="Product 2">
+                <h3>Pigmentation Serum And D Tan</h3>
+                <p>Price:₹679</p>
+                <button class="add-to-cart" onclick="addToCart('Pigmentation Serum And D Tan',679)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRo_-IaypYW7GbojlbGJcEqX6Di9suaR9LVOk5Ed717MISenFZS_30vcx_Q-CZi188Uk9giiUSNK993M3qS72o3y1t6mxohQMslb8uzTTV3NJtPxKyjj3ELLQ&usqp=CAE" alt="Product 2">
+                <h3>BBO 99% Pure Aloe Vera Gel for All type of skins & hairs</h3>
+                <p>Price:₹349</p>
+                <button class="add-to-cart" onclick="addToCart('BBO 99% Pure Aloe Vera Gel for All type of skins & hairs',349)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQPExG9ghbXgjg5Koo57oX5Q6pW5Gkd5LYvKJviUaYGOhL-d87WBjJKvtLHQxSup6L3e6XbTRJoSMnmXFiLWY1vcIvFGXKZQgkpQ7uYLKPfXtE4nXeZ6r9dpg&usqp=CAE" alt="Product 2">
+                <h3>Binge-Watcing Beauty Kit</h3>
+                <p>Price:₹2,796</p>
+                <button class="add-to-cart" onclick="addToCart('Binge-Watching Beauty Kit',2796)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQqZ_iABXfbYDnVyVuorHlZ6RRJXVRyJvhlFtaY6OX9QwHJv8KdIYVpfr3rEKa_beuR9IKICUeOrRWck3ccvkkhVqwGnnh5HohNBmnjZDFVNS-uwnkK724uCA&usqp=CAE" alt="Product 2">
+                <h3>Lip Plumper Oil Set 3PC / 2x5.5ml</h3>
+                <p>Price:₹3,039</p>
+                <button class="add-to-cart" onclick="addToCart('Lip Plumper Oil Set 3PC / 2x5.5ml',3039)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQaHmM_LrPGEwQQxuyJRAfJcQMGB0F2nnuyFkTOTzF_JQEcc4q-trjd53E4eCriIuQKfflxZapfX0IHLwXCvX4h2AZ37lTvpfJh2YmmP-TYcNEt2xPoZ2js1Q&usqp=CAE" alt="Product 2">
+                <h3>Muscleblaze Super Gainer Black</h3>
+                <p>Price:₹1,099</p>
+                <button class="add-to-cart" onclick="addToCart('Muscleblaze Super Gainer Black',1099)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRk2PjSgH6V-HL88OgBxw2lY6HuXFZmnWsHcU_S1MvZJbk_O3G4GX_i8a0OoSP6P8C8f_mGV3Qr76mltFCuTQ39o2n2QyfjNwWAwADq68I&usqp=CAE" alt="Product 2">
+                <h3>JJ Jonex Unisex Multicolor Aluminum All Rounder Ayush Badminton Kit With 2 Rackets</h3>
+                <p>Price:₹669</p>
+                <button class="add-to-cart" onclick="addToCart('JJ Jonex Unisex Multicolor Aluminum All Rounder Ayush Badminton Kit With 2 Rackets',669)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSWhtNX54WXip4rOBz812t-MY700h0SCjL7DR2o6bB6mzCAl9_CjVYEfS9fLY-gG90Bqm13Z0k2gNKaOtAbL8suxgQQXBEXI4fjHWKr6MeAkoP8ZoaR9SLtGw&usqp=CAE" alt="Product 2">
+                <h3>Oumers Professional Outdoor & Sports Products Tool</h3>
+                <p>Price:₹800</p>
+                <button class="add-to-cart" onclick="addToCart('Oumers Professional Outdoor & Sports Products Tool',800)">Add to Cart</button>
+            </div>
+
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTSfaA5cVPenZZ42p2Y5TRlefiQwM-UDkD5MibfQpjYtJBbA2_79U22jsl-gyu3ypYNZ_OBTGJ53k45p2nPDuK6H9h04YgIsYpAEY6qZSjR&usqp=CAE" alt="Product 2">
+                <h3>Sahni Sports Tubular</h3>
+                <p>Price:₹369</p>
+                <button class="add-to-cart" onclick="addToCart('Sahni Sports Tubular',369)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRXTtlnsD3vHyXwxuPZQ2YW6yglHiDaq5_dFJBurkWZYpNbtenwilGlCta0Eqzavf1Yo_xsx70mmYEwrJ-8FyXJLZHEcdWOrSTpltn6o2WUTGc3FoiIaQB3&usqp=CAE" alt="Product 2">
+                <h3>MuscleBlaze Backpack Gym Bag for Men and Women, Sports Bag, Stealth Black, 30 L</h3>
+                <p>Price: ₹1,999</p>
+                <button class="add-to-cart" onclick="addToCart('MuscleBlaze Backpack Gym Bag for Men and Women, Sports Bag, Stealth Black, 30 L',1999)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRSHIT-QKHN1G5oqsH_0iZHiBkQgZjpZRloMCzfsKJagSYBWhd6jID_AZnCMyMglGW2cE68WVfYB36ZpT6TsxxnpVJpLN7NbF7Xobigvac&usqp=CAE" alt="Product 2">
+                <h3>The Stationery Shop Of Tehran</h3>
+                <p>Price:₹399</p>
+                <button class="add-to-cart" onclick="addToCart('The Stationery Shop Of Tehran',399)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSynY2cK8ljcFO5eVjGF9wsHsVzx51TlObICQou5ORRVF2yTf7PCHDCKLW5r66gJe35hs1SWQUY-lis6UfYVZucYzoNZTWiWP0qe5nAqn2X0voVTWgrDU4S&usqp=CAE" alt="Product 2">
+                <h3>Literary Lover's Box Set (RP Minis)</h3>
+                <p>Price:₹1,236</p>
+                <button class="add-to-cart" onclick="addToCart('Literary Lover's Box Set (RP Minis)',1236)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQVhar97S6x0JWWvnf_pzIK_dKU2umRMvewvUBvTWZ3xpIdNT4oJzyfxSI0d6zArXL0FLCgENW3shXSeJO4gjEtrtJrEEH-e2Kz2cQHLsPI&usqp=C" alt="Product 2">
+                <h3>It Ends with Us - Colleen Hoover</h3>
+                <p>Price: ₹2,469</p>
+                <button class="add-to-cart" onclick="addToCart('It Ends with Us - Colleen Hoover',2469)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQRSgJlcoilr4fzuFc6bYWF6j7FylRnessPmEpwQwUDP6i9T9ZPUxQZFsVHeNF2zRcFf9SdKSziffzUmX2BijulnsP2lmC64ifDZhfdqk5sGtAwITeMSvompA&usqp=CAE" alt="Product 2">
+                <h3>Metamorphosis by Franz Kafka</h3>
+                <p>Price:₹89</p>
+                <button class="add-to-cart" onclick="addToCart('Metamorphosis by Franz Kafka',89)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQfxKVdCnA3TmMJe3KRG0-ObqBkFvcTy5aQ-OIItjSN3w-S_8lBktcVK66qXlerlqS7HGMG9Bus6qObnUN1cpKtqvHGrXoAFNtD7zZ9FWc&usqp=CAE" alt="Product 2">
+                <h3>The 100 Complete Boxed Set</h3>
+                <p>Price: ₹1,899</p>
+                <button class="add-to-cart" onclick="addToCart('The 100 Complete Boxed Set',1899)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT-7rM32gYEyvswL1PyNQj2oik4AFX9sCq3Cb688P1X1voLLGwMmmQV47-OUGMS2exGjEdhjdls0h9jljSsHrh0pCLkU62XbEiWVgUwbTIp7PEcmksm1ub4&usqp=CAE" alt="Product 2">
+                <h3>ROKR Marble Night City</h3>
+                <p>Price:₹4,523</p>
+                <button class="add-to-cart" onclick="addToCart('ROKR Marble Night City',4523)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRedFr9h-1Nk8PnvnDZnGvv_Nix_Zj0Q377NeCSxBYI9EDuC7r28HICBllvsoyOEWoOfzrvHF7B9GjPDX2N0aBRBayc4Y9ra-p0DUsCgUlcC8zlmX85mcH_&usqp=CAE" alt="Product 2">
+                <h3>RC Plane Gyro Model Toy</h3>
+                <p>Price:₹5,403</p>
+                <button class="add-to-cart" onclick="addToCart('RC Plane Gyro Model Toy',5043)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQGim5qvVGpxhPsjGjybyP8cZzn9eTcLmluB6YsJfY7VrZjg4S_HMnki3sBqhN8LIUXRCvR3YYRFJwqScHe5B3in5PNX6b8ceBSojROEf8lw3jM4yTjZN0u&usqp=CAE" alt="Product 2">
+                <h3>flashing yoyo Professional LED Finger Spinning Toy - Colorful You You Ball Trick</h3>
+                <p>Price: ₹2,62,163</p>
+                <button class="add-to-cart" onclick="addToCart('flashing yoyo Professional LED Finger Spinning Toy - Colorful You You Ball Trick',262163 )">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRBwYVj8Yokno96RARm_LaaaDQSWUpzB15dyaccAjrILJAbHgUzUXYZuoip-re5a2lhGC6rMvteqpqVXaVQ8Idc9cb18OTNwepKWGGcrOFQ8MTEv0AgGjuSNw&usqp=CAE" alt="Product 2">
+                <h3>LDD Presents Wednesday Addams</h3>
+                <p>Price:₹5,468</p>
+                <button class="add-to-cart" onclick="addToCart('LDD Presents Wednesday Addams',5468)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSWno6RZvcRBUSIXzdBYpPPERZMuRk1GXya_stY41nqJgcQ1AtyEnkxROwMu1Vg6413-eyVnEiAq-7HoRp1Ly2nR0AAfgF4GN7RhEtCsqQ&usqp=CAE" alt="Product 2">
+                <h3>Action Toy Figures Anime Figures 15pcs/set Demon Slayer Tanjirou Nezuko Zenitsu Giyuu Rengoku Shinobu Kimetsu no Yaiba Action Figma PVC Toys</h3>
+                <p>Price:₹14,359</p>
+                <button class="add-to-cart" onclick="addToCart('Action Toy Figures Anime Figures 15pcs/set Demon Slayer Tanjirou Nezuko Zenitsu Giyuu Rengoku Shinobu Kimetsu no Yaiba Action Figma PVC Toys',14359)">Add to Cart</button>
+            </div>
+
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTayi0LQpLD5hl-ZYY7KEwx_QG2szxmY1DmE4plliT3Q5Ze8bjXAnNgwYLXLlvDSchN3mNkemu4l1WMCpdjoxtctMtkKO4_5-mGMC0l0idi&usqp=CAE" alt="Product 2">
+                <h3>Wudkar-Wrought Iron & Wooden Home Decorative Cycle - Black (Best Home Decor Product</h3>
+                <p>Price:₹1,743</p>
+                <button class="add-to-cart" onclick="addToCart('Wudkar-Wrought Iron & Wooden Home Decorative Cycle - Black (Best Home Decor Product',1743)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQWaLhj4XYs_36Ry-MIYkxck7UylS0gtZExpVOxVjBiOp7sQo0TvYWIt0hBxouKdmIlkx5LJxTg2vhqC5K0skRwWHE0WnBM-KB_qGxoICQDZMPl8BABcJf5&usqp=CAE" alt="Product 2">
+                <h3>Pc Home Decor 30 Inch</h3>
+                <p>Price:₹7,999</p>
+                <button class="add-to-cart" onclick="addToCart('Pc Home Decor 30 Inch',7999)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ98w2_H0SZK90UQxMkgJmW9xhiij7xuQqlyagUTBscoYJYBmtyOntJP5IBWR4M1vv01qPjEeVT527N1Q2AS3Bdgs6pYtqsYEEvXL8ozuaWzDneLKarV_dhWLA&usqp=CAE" alt="Product 2">
+                <h3>Stockholm Laminated Gold Globe | Sammsara</h3>
+                <p>Price:₹783</p>
+                <button class="add-to-cart" onclick="addToCart('Stockholm Laminated Gold Globe | Sammsara',783)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTUzo3f21ChroEyR5MLgiSlJ7t7P0zsNR6cfZy6g_wAfyOSlv0TxMXONWOpujGSt8U7-mT3gEjd-gGn1sWXNjAe9wBWb0M2PCMU5pAsXGG1&usqp=CAE" alt="Product 2">
+                <h3>Kawai Homes Home Interior Decoration Items Set of 3</h3>
+                <p>Price:₹800</p>
+                <button class="add-to-cart" onclick="addToCart('Kawai Homes Home Interior Decoration Items Set of 3',800)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSlWPmOTOHGPOZtVJC6i2FdiBgbKD59bqZ-rJonEFbwWQjVW-4sIrM7aLMlRJba03I2qKeZh-qDEOnVS9b5qzUlPySjqbfclEl0V_CVCD8sSbF0CS_b31S9&usqp=CAE" alt="Product 2">
+                <h3>Hand set big +small |Table Top |Home Decor Products Online</h3>
+                <p>Price:₹3,000</p>
+                <button class="add-to-cart" onclick="addToCart('Hand set big +small |Table Top |Home Decor Products Online',3000)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSz37iJO0QHw84IAd_GVpZ2zJ2PK2veEpyX1Onz5X34llHzBV6_w_xqCDs3UUO6QubgrAlZxrVyWdq7ptAEjxv4q_iNMnord7AOhnfc6mTPGJMAYS7OaS9w8Q&usqp=CAE" alt="Product 2">
+                <h3>Fortune Sunlite Refined Sunflower Oil 15ltr</h3>
+                <p>Price: ₹1,699</p>
+                <button class="add-to-cart" onclick="addToCart('Fortune Sunlite Refined Sunflower Oil 15ltr',1699)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRbZjqj93YOqvkG0v1LgViEPSxb_F6404cwpNa0ayoccFQ9tPVkX9JzbUmjDS71zDXySELLkHs7V1HdaDqZ67qB2tJHFzazSoyKhZEV6mCfPI1LYm7ZTo4PFQ&usqp=CAE" alt="Product 2">
+                <h3>Tata Sampann 100% Pure Premium Cashews</h3>
+                <p>Price:₹350</p>
+                <button class="add-to-cart" onclick="addToCart('Tata Sampann 100% Pure Premium Cashews',350)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTQznRgvT7IwmTy6hhfx3aqySqZrbBnER8jl28LIAA_SatBNivX8Ql_ZvCAhTV4AeNiUcpO2qPDiLM0KVSqy3aSFKj5VrOYIjnWEFeFDVejquV_vmvCVDHszw&usqp=CAE" alt="Product 2">
+                <h3>Fortune Chakki Fresh Atta, 10 KG</h3>
+                <p>Price:₹340</p>
+                <button class="add-to-cart" onclick="addToCart('Fortune Chakki Fresh Atta, 10 KG',340)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQlq3VWFdoas91SLPsd1Qxyz3JI3flx2GuItGajwjXbcohVTVZAmrPO8pl5iMtBA5f3OWYbtsyXwfZ0YmRfbXPyTy4Cp_wca9x6CXtCCAoUGOUjXhZH8xldqw&usqp=CAE" alt="Product 2">
+                <h3>AASHIRVAAD CHAKKI ATTA 5 kg</h3>
+                <p>Price: ₹204</p>
+                <button class="add-to-cart" onclick="addToCart('AASHIRVAAD CHAKKI ATTA 5 kg',204)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQVPwiv7Q9LpNsq-vLo8EWNFRPZ0xEUoyNv99H_YUHN3YmC0kcSK784t4QLksTclBOHUPfftX7mCu7ynXGUqYkKZsQDuLC4QD7E2Ei3tLs&usqp=CAE" alt="Product 2">
+                <h3>Dry Fruit Punch With Dates | Khajur Pak Online | Hariba Dairy Farm 1 KG</h3>
+                <p>Price:₹799</p>
+                <button class="add-to-cart" onclick="addToCart('Dry Fruit Punch With Dates | Khajur Pak Online | Hariba Dairy Farm 1 KG',799)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSUB5myp4ssCeN0GbEeSVGHvOGbGYrNt1QuOizDizmHVwDVVo5QLCWuKirpcwHeE7P2VAvvnQC7toCnoDQJxpUR0c2ns_m1ou_wOm7gW1LI4pLLi04OdCDB&usqp=CAE" alt="Product 2">
+                <h3>Elegant 14 in 1 Kitchen Utensils Set</h3>
+                <p>Price:₹1,454</p>
+                <button class="add-to-cart" onclick="addToCart('Elegant 14 in 1 Kitchen Utensils Set',1454)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSQTayBqs0pmFhiZBE8Zx4nBPFbGTMr0tHKW4Wdpjk1aGw6r-28IPaVUNMAkkhjRSNFB0gAOupV2nfqyebriGjXg9VRh0J6UEyayXcuyEJ0ZDaMPTf9uPVY&usqp=CAE" alt="Product 2">
+                <h3>Galaxy 24 in 1 Kitchen Utensils Set</h3>
+                <p>Price: ₹1,389</p>
+                <button class="add-to-cart" onclick="addToCart('Galaxy 24 in 1 Kitchen Utensils Set',1389)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSLsinJNwl8oeD6DG89UApmM9FVRJoAgXH3FNqFRJ9TL4gDMLrMV1JlyqOQy2riu_ofcTwCxRqzBd6DLhZzWrGcobM7jSnjBEpRZbQi316VitRY7J5vYpbt7Q&usqp=CAE" alt="Product 2">
+                <h3>Lifelong LLGS10 Glass Top, 2 Burner Manual Glass Gas Stove, Black</h3>
+                <p>Price: ₹1,499</p>
+                <button class="add-to-cart" onclick="addToCart('Lifelong LLGS10 Glass Top, 2 Burner Manual Glass Gas Stove, Black',1499)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR1FLdedPwXtmwW04W5po7VNwHMTy8PmIVX1fvete7qfZ1_Bg-Tcxnad2LaenF_DEXehpb3wQkOkQgc4CHGQbRiCOEpc26BooXpfURrck8T&usqp=CAE" alt="Product 2">
+                <h3>Dining Table Set 6 Seat Modern Natural Wood Color Dining Table And Chairs Set For</h3>
+                <p>Price: ₹27,415</p>
+                <button class="add-to-cart" onclick="addToCart('Dining Table Set 6 Seat Modern Natural Wood Color Dining Table And Chairs Set For',27415)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR6ymLTvx9XLKwef63pU-1XEefy0lNYyLsrvrPfiEAM8Z71rmLa-bZ6E67qIyUJoO6Tgo0F-K5ULtw1XOJekRGaKC8cLn0hadu4Yab7VHqi&usqp=CAE" alt="Product 2">
+                <h3>Butterfly 8 Seater Dining Table Set By Desirebyyou</h3>
+                <p>Price:₹1,11,999</p>
+                <button class="add-to-cart" onclick="addToCart('Butterfly 8 Seater Dining Table Set By Desirebyyou',111999)">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="cart" id="cart">
+        <h2>Cart</h2>
+        <ul class="cart-items" id="cart-items">
+            
+        </ul>
+        <button class="buy-button" onclick="buy()">Buy</button>
+    </div>
+
+    <footer>
+        <p>&copy;2022 ValueVortex. All rights reserved.</p>
+    </footer>
+
+    <script>
+        
+        function addToCart(productName, price) {
+         
+            let cart = localStorage.getItem('cart');
+            if (!cart) {
+               
+                cart = [];
+            } else {
+                
+                cart = JSON.parse(cart);
+            }
+
+            
+            const product = {
+                name: productName,
+                price: price
+            };
+
+           
+            cart.push(product);
+
+      
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+         
+            openCart();
+        }
+
+        function openCart() {
+            const cart = document.getElementById('cart');
+            const cartItems = document.getElementById('cart-items');
+
+            
+            cartItems.innerHTML = '';
+
+            
+
+            let cartData = localStorage.getItem('cart');
+            if (cartData) {
+                cartData = JSON.parse(cartData);
+
+                    cartData.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item.name + ' - ₹'+ item.price;
+                    cartItems.appendChild(li);
+                });
+            }
+
+           
+            cart.style.display = 'block';
+        }
+
+        function buy() {
+            alert('Thank you for your purchase!');
+            localStorage.removeItem('cart');
+            document.getElementById('cart').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
